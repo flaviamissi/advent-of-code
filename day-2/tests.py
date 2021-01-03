@@ -1,6 +1,6 @@
 import unittest
 
-from password import (is_valid,
+from day2 import (is_valid,
                       parse_policy,
                       parse_password,
                       count_valid,
@@ -98,7 +98,7 @@ class ValidCountTestCase(unittest.TestCase):
     def test_count_1_valid_out_of_1(self):
         pwds = [('abc', {'b': [1, 2]})]
         valid_count = 1
-        self.assertEqual(count_valid(pwds), valid_count)
+        self.assertEqual(count_valid(pwds, is_valid), valid_count)
 
     def test_count_1_valid_out_of_2(self):
         pwds = [
@@ -106,7 +106,7 @@ class ValidCountTestCase(unittest.TestCase):
             ('def', {'g': [1, 2]})  # invalid: missing g
         ]
         valid_count = 1
-        self.assertEqual(count_valid(pwds), valid_count)
+        self.assertEqual(count_valid(pwds, is_valid), valid_count)
 
     def test_count_2_valid_out_of_2(self):
         pwds = [
@@ -114,7 +114,7 @@ class ValidCountTestCase(unittest.TestCase):
             ('defg', {'g': [1, 2]})
         ]
         valid_count = 2
-        self.assertEqual(count_valid(pwds), valid_count)
+        self.assertEqual(count_valid(pwds, is_valid), valid_count)
 
     def test_count_2_valid_out_of_3(self):
         pwds = [
@@ -123,4 +123,4 @@ class ValidCountTestCase(unittest.TestCase):
             ('abc', {'k': [1, 2]}),  # invalid: missing k
         ]
         valid_count = 2
-        self.assertEqual(count_valid(pwds), valid_count)
+        self.assertEqual(count_valid(pwds, is_valid), valid_count)

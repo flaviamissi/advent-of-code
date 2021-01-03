@@ -1,4 +1,4 @@
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Callable
 
 
 def is_valid(pwd: str, policy: Dict[str, List]) -> bool:
@@ -45,10 +45,11 @@ def parse_password(pwd_with_policy: str) -> Tuple[str, Dict[str, List]]:
     return pwd, parse_policy(policy)
 
 
-def count_valid(pwds: List[Tuple[str, Dict[str, List]]]) -> int:
+def count_valid(pwds: List[Tuple[str, Dict[str, List]]],
+                validate_func: Callable[[str, Dict[str, List]], bool]) -> int:
     count = 0
     for pwd, policy in pwds:
-        if is_valid_pos(pwd, policy):
+        if validate_func(pwd, policy):
             count += 1
     return count
 
@@ -60,6 +61,6 @@ if __name__ == '__main__':
         pwd, policy = parse_password(line)
         pwds.append((pwd, policy))
 
-    valid_count = count_valid(pwds)
+    valid_count = count_valid(pwds, is_valid_pos)
     print('there are {} valid passwords in the input file.'.format(valid_count))
     f.close()
